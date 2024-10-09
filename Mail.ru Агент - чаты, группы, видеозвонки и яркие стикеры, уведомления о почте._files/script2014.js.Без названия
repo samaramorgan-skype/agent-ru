@@ -1,0 +1,41 @@
+$(function() {
+
+	var $w = $(window),
+		$pageHeader = $('#pageHeader');
+
+	$w.scroll(function() {
+		var scrollTop = $w.scrollTop();
+
+		$pageHeader.css({
+			top: scrollTop < 30 ? -scrollTop : -30
+		});
+	});
+
+	/////
+
+	// ie8 fix
+	// ie8 do nothing with :hover:after
+	$('.btn').hover(function(e) {
+		$(e.currentTarget).addClass('hover');
+	}, function(e) {
+		$(e.currentTarget).removeClass('hover');
+	});
+
+	const slider = $('.page-slider');
+	if (slider.length > 0) {
+		$('.page-header__nav').remove();
+		$('.page-footer').remove();
+		$('.page-content').remove();
+		slider.remove();
+
+		var closeSection = $(`
+	<div class="empty-section" />
+	<div class="page-close-section">
+	<h1>Продолжайте общаться с друзьями в
+	 <br><a href="https://vk.me/app">VK Мессенджере</a>, а с коллегами — в <a href="https://biz.mail.ru/">VK WorkSpace</a></h1>
+	<p>Сервис Агент Мail.ru завершил работу.</p>
+	</div>`);
+		$(document.body).append(closeSection);
+		$('.portal-footer').removeAttr( 'style' ).appendTo(document.body);
+	}
+});
